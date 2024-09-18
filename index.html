@@ -15,71 +15,15 @@
     <a-marker preset="hiro">
     <a-entity gltf-model="modelos/red_panda.glb" 
                       animation-mixer
-                      scale="0.5 0.5 0.5" 
+                      scale="1" 
                       position="0 0 0" 
                       rotation="0 0 0" 
                       gesture-handler>
             </a-entity>
           </a-marker>
-          <a-entity camera></a-entity>
+          <a-entity camera look-controls position="0 0 0"></a-entity>
         </a-scene>
+    
       
-        <!-- Script para manejar gestos y rotación -->
-        <script>
-          // Componente para rotar el modelo 3D al arrastrar
-          AFRAME.registerComponent('gesture-handler', {
-            schema: { },
-      
-            init: function () {
-              this.initialX = 0;
-              this.initialRotationY = 0;
-              this.isDragging = false;
-      
-              this.el.addEventListener('mousedown', this.onMouseDown.bind(this));
-              this.el.addEventListener('mousemove', this.onMouseMove.bind(this));
-              this.el.addEventListener('mouseup', this.onMouseUp.bind(this));
-      
-              this.el.addEventListener('touchstart', this.onTouchStart.bind(this));
-              this.el.addEventListener('touchmove', this.onTouchMove.bind(this));
-              this.el.addEventListener('touchend', this.onTouchEnd.bind(this));
-            },
-      
-            onMouseDown: function (evt) {
-              this.isDragging = true;
-              this.initialX = evt.clientX;
-              this.initialRotationY = this.el.getAttribute('rotation').y;
-            },
-      
-            onMouseMove: function (evt) {
-              if (this.isDragging) {
-                const deltaX = evt.clientX - this.initialX;
-                const newRotationY = this.initialRotationY + deltaX * 0.5; // Sensibilidad
-                this.el.setAttribute('rotation', {x: 0, y: newRotationY, z: 0});
-              }
-            },
-      
-            onMouseUp: function () {
-              this.isDragging = false;
-            },
-      
-            onTouchStart: function (evt) {
-              this.isDragging = true;
-              this.initialX = evt.touches[0].clientX;
-              this.initialRotationY = this.el.getAttribute('rotation').y;
-            },
-      
-            onTouchMove: function (evt) {
-              if (this.isDragging) {
-                const deltaX = evt.touches[0].clientX - this.initialX;
-                const newRotationY = this.initialRotationY + deltaX * 0.5;
-                this.el.setAttribute('rotation', {x: 0, y: newRotationY, z: 0});
-              }
-            },
-      
-            onTouchEnd: function () {
-              this.isDragging = false;
-            }
-          });
-        </script>
       </body>
       </html>
